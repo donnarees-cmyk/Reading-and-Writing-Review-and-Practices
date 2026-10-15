@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Grade 6 Reading and Writing Practice (FAST-style): Five Missions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --navy:#12355b; --ink:#1b2433; --soft:#53607a; --line:#b9c4d6; --paper:#ffffff; --bg:#eef2f8;
+  --sel:#e6f0ff; --selb:#1d5fa8; --good:#17803d; --goodbg:#e0f6e8; --bad:#b3261e; --badbg:#fde8e6; --flag:#d97706; --yellow:#ffd23f;
+  --tacc:#1d5fa8; --fs:1;
+  --head:"Fredoka","Trebuchet MS",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible","Verdana",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; font-family:var(--body); color:var(--ink); background:var(--bg); font-size:1.05rem; line-height:1.55; padding-bottom:env(safe-area-inset-bottom,0px)}
+h1,h2,h3{margin:0 0 .5rem; line-height:1.2}
+p{margin:.4rem 0}
+
+#hud{background:var(--navy); color:#fff; padding:calc(.5rem + env(safe-area-inset-top,0px)) 1rem .5rem; position:sticky; top:0; z-index:30; border-bottom:4px solid var(--yellow)}
+.hud-in{max-width:1180px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; gap:.4rem .8rem}
+.brand{display:flex; flex-direction:column; line-height:1.15; margin-right:auto}
+.brand b{font-family:var(--head); font-weight:600; font-size:1.1rem}
+.brand span{font-size:.85rem; color:#c9d6ea}
+.tool{font:inherit; font-weight:700; color:#fff; background:#24507f; border:2px solid #7fa3cf; border-radius:10px; min-height:44px; min-width:44px; padding:.2rem .7rem; cursor:pointer; touch-action:manipulation}
+.pill{background:#24507f; border-radius:999px; padding:.2rem .8rem; font-weight:700; white-space:nowrap}
+.rank{display:flex; flex-direction:column; min-width:150px; flex:1 1 170px; max-width:250px}
+.rank b{font-family:var(--head); font-weight:600; font-size:.98rem}
+.xpbar{height:14px; background:#3a3a73; border-radius:999px; overflow:hidden; border:2px solid #fff}
+.xpbar i{display:block; height:100%; background:linear-gradient(90deg,#ffd23f,#ff8a3d)}
+.xpnote{font-size:.8rem; color:#d8dcff}
+
+.wrap{max-width:1180px; margin:0 auto; padding:1rem 1rem 6.5rem}
+.card{background:var(--paper); border:2px solid var(--line); border-radius:12px; padding:1.1rem 1.2rem; margin:0 0 1rem}
+.card.pop{border:3px solid var(--navy); box-shadow:5px 5px 0 var(--navy)}
+.small{font-size:.92rem; color:var(--soft)}
+.hl{background:linear-gradient(transparent 55%,var(--yellow) 55%); padding:0 .15em}
+.row{display:flex; flex-wrap:wrap; gap:.6rem; align-items:center}
+label.nm{display:block; font-weight:700; margin-bottom:.35rem}
+input[type=text]{font:inherit; padding:.8rem .9rem; border:2px solid var(--navy); border-radius:10px; width:100%; max-width:420px; background:#fff; color:var(--ink)}
+.msg{color:var(--bad); font-weight:700; min-height:1.4em}
+:focus-visible{outline:4px solid #ffb300; outline-offset:2px}
+
+.btn{font:inherit; font-weight:700; cursor:pointer; color:var(--ink); background:#fff; border:2px solid var(--navy); border-radius:10px; padding:.65rem 1.1rem; min-height:48px; touch-action:manipulation; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:.4rem}
+.btn.main{background:var(--navy); color:#fff}
+.btn.go{background:var(--yellow); border-color:var(--ink)}
+.btn.sm{min-height:42px; padding:.35rem .8rem; font-size:.95rem}
+.btn:disabled{opacity:.45; cursor:default}
+.btn:active:not(:disabled){transform:translateY(1px)}
+
+.hero{text-align:center}
+.hero h1{font-family:var(--head); font-size:2rem}
+.hero .mascot{font-size:3.6rem; line-height:1}
+.hero .row{justify-content:center}
+.hero input{margin:0 auto}
+.tests{display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.tcard{padding:0; overflow:hidden; border:3px solid var(--navy); box-shadow:5px 5px 0 var(--navy)}
+.tcard .th{background:var(--tacc); color:#fff; padding:.8rem 1.1rem; display:flex; gap:.7rem; align-items:center}
+.tcard .th .em{font-size:1.9rem; background:#fff; border:3px solid var(--navy); border-radius:12px; width:52px; height:52px; display:grid; place-items:center; flex:0 0 52px}
+.tcard .th h3{font-family:var(--head); font-weight:600; font-size:1.15rem; margin:0}
+.tcard .th span{font-size:.9rem; opacity:.95}
+.tcard .tb{padding:1rem 1.1rem}
+.std{margin:.3rem 0 .6rem; padding:0; list-style:none}
+.std li{font-size:.88rem; line-height:1.35; margin:.25rem 0; color:var(--soft)}
+.std b{color:var(--ink); background:#eaf0fa; border:1px solid var(--line); border-radius:6px; padding:0 .3rem; font-size:.85rem; white-space:nowrap}
+.star{font-size:1.25rem; letter-spacing:.1em}
+.shelf{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:.6rem}
+.badge{border:3px solid var(--navy); border-radius:12px; padding:.5rem .6rem; text-align:center; background:#fff7cf}
+.badge .be{font-size:1.8rem; display:block}
+.badge b{font-family:var(--head); font-weight:600; display:block; line-height:1.15}
+.badge .d{font-size:.8rem; color:var(--soft); display:block; line-height:1.2; margin-top:.15rem}
+.badge.lock{background:#e5e8f0; filter:grayscale(1); opacity:.7}
+textarea{font:inherit; width:100%; min-height:190px; border:2px solid var(--navy); border-radius:10px; padding:.7rem; background:#fff; color:var(--ink)}
+textarea.plan{min-height:64px}
+.settings{border-color:var(--yellow); background:#fffdf0}
+.tabs{display:flex; flex-wrap:wrap; gap:.5rem; margin:.3rem 0 .7rem}
+.tab{font:inherit; font-weight:700; cursor:pointer; border:2px solid var(--navy); background:#fff; color:var(--ink); padding:.5rem .9rem; border-radius:999px; min-height:44px}
+.tab.on{background:var(--navy); color:#fff}
+
+.crumb{display:flex; flex-wrap:wrap; align-items:center; gap:.6rem; margin-bottom:.7rem}
+.crumb .ttl{font-weight:700}
+.grid{display:grid; grid-template-columns:1fr 1fr; gap:1rem; align-items:start}
+.ppane,.qpane{background:#fff; border:2px solid var(--line); border-radius:10px; padding:1rem 1.2rem; max-height:calc(100vh - 260px); overflow:auto; font-size:calc(1.05rem * var(--fs))}
+.ppane{border-top:6px solid var(--tacc)}
+.ppane h2{font-family:var(--head); font-size:calc(1.4rem * var(--fs)); margin-bottom:.1rem}
+.ppane h3{font-family:var(--head); font-size:calc(1.15rem * var(--fs)); margin:.8rem 0 .3rem; color:var(--tacc)}
+.genre{color:var(--soft); font-size:.9rem; margin-bottom:.6rem}
+.para{margin:0 0 .85rem; line-height:1.7; position:relative; padding-left:2rem}
+.pn{position:absolute; left:0; top:.1rem; width:1.5rem; height:1.5rem; border-radius:50%; background:var(--tacc); color:#fff; font-size:.8rem; font-weight:700; display:grid; place-items:center}
+.sent{font:inherit; font-size:1em; color:inherit; background:#f3f6fb; border:2px dashed #8aa0c2; border-radius:6px; padding:.05rem .3rem; margin:.1rem 0; cursor:pointer; text-align:left; line-height:1.6; touch-action:manipulation}
+.sent.on{background:var(--yellow); border:2px solid var(--ink)}
+.qhead{display:flex; align-items:center; justify-content:space-between; gap:.6rem; margin-bottom:.4rem}
+.qhead h2{font-size:calc(1.3rem * var(--fs)); margin:0}
+.flagbtn{font:inherit; font-weight:700; cursor:pointer; background:#fff; border:2px solid var(--line); border-radius:10px; padding:.35rem .8rem; min-height:44px}
+.flagbtn.on{background:#fff2d6; border-color:var(--flag); color:#7a4300}
+.listen{display:flex; flex-wrap:wrap; gap:.5rem; margin:.2rem 0 .8rem}
+.stem{font-weight:700; margin:.2rem 0 .7rem}
+.inst{color:var(--soft); font-style:italic; margin:.2rem 0 .6rem}
+.part{margin-bottom:1.1rem; padding-bottom:.3rem}
+.part h3{font-size:1rem; color:var(--tacc); margin-bottom:.2rem}
+.fopts{display:grid; gap:.55rem}
+.frow{display:flex; gap:.45rem; align-items:stretch}
+.fopt{flex:1; font:inherit; font-size:1em; text-align:left; cursor:pointer; background:#fff; color:var(--ink); border:2px solid #8fa0bb; border-radius:10px; padding:.65rem .8rem; min-height:52px; display:flex; gap:.6rem; align-items:flex-start; touch-action:manipulation}
+.fopt .ind{flex:0 0 24px; height:24px; border:2px solid #5a6b88; display:grid; place-items:center; font-size:.85rem; font-weight:700; margin-top:.1rem; background:#fff}
+.fopt .ind.ci{border-radius:50%} .fopt .ind.sq{border-radius:5px}
+.fopt .lt{font-weight:700; min-width:1.3rem}
+.fopt.on{background:var(--sel); border-color:var(--selb); box-shadow:inset 0 0 0 1px var(--selb)}
+.fopt.on .ind{background:var(--selb); color:#fff; border-color:var(--selb)}
+.fopt.cross .ot{text-decoration:line-through; color:#7d8aa3}
+.xs{font:inherit; font-size:1rem; cursor:pointer; background:#fff; border:2px solid var(--line); border-radius:10px; min-width:44px; color:var(--soft)}
+.hotbox{border:2px dashed var(--selb); border-radius:10px; padding:.7rem .8rem; background:#f7fbff; min-height:3rem}
+.mt{border-collapse:collapse; width:100%; margin:.3rem 0}
+.mt th,.mt td{border:2px solid var(--line); padding:.45rem .5rem; text-align:center; vertical-align:middle}
+.mt thead th{background:#eaf0fa; font-size:.95em}
+.mt tbody th{text-align:left; font-weight:400; background:#fff}
+.cell{font:inherit; width:44px; height:44px; border-radius:50%; border:2px solid #5a6b88; background:#fff; cursor:pointer; color:transparent; touch-action:manipulation}
+.cell.on{background:var(--selb); border-color:var(--selb); color:#fff}
+.mtwrap{overflow-x:auto}
+.fbk{border-radius:10px; padding:.7rem .9rem; margin-top:.9rem}
+.fbk.part{background:#fff6d9; border:2px solid #d9a400}
+.fbk.good{background:var(--goodbg); border:2px solid var(--good)}
+.fbk.bad{background:var(--badbg); border:2px solid var(--bad)}
+
+/* writing */
+.wlabel{display:block; font-weight:700; margin:.7rem 0 .25rem}
+.wtask{background:#f7fbff; border:2px dashed var(--selb); border-radius:10px; padding:.7rem .9rem; margin-bottom:.6rem}
+textarea.essay{min-height:340px; font-size:calc(1.05rem * var(--fs)); line-height:1.6}
+.wc{font-weight:700}
+.selfchk{display:flex; gap:.6rem; align-items:flex-start; width:100%; text-align:left; font:inherit; background:#fff; border:2px solid #8fa0bb; border-radius:10px; padding:.55rem .7rem; margin:.4rem 0; cursor:pointer; min-height:46px}
+.selfchk .ind{flex:0 0 24px; height:24px; border:2px solid #5a6b88; border-radius:5px; display:grid; place-items:center; font-weight:700; font-size:.85rem; background:#fff}
+.selfchk.on{background:var(--sel); border-color:var(--selb)}
+.selfchk.on .ind{background:var(--selb); border-color:var(--selb); color:#fff}
+.essaybox{white-space:pre-wrap; border:2px solid var(--line); border-radius:10px; padding:.8rem; background:#fcfcff}
+.chk{display:flex; gap:.6rem; align-items:flex-start; padding:.5rem 0; border-bottom:2px solid #e3e8f2}
+.chk .ic{font-size:1.2rem}
+
+.foot{position:fixed; left:0; right:0; bottom:0; background:#fff; border-top:3px solid var(--navy); padding:.5rem .8rem calc(.5rem + env(safe-area-inset-bottom,0px)); z-index:25}
+.foot-in{max-width:1180px; margin:0 auto; display:flex; gap:.6rem; align-items:center}
+.chips{display:flex; gap:.4rem; overflow-x:auto; flex:1; padding:.2rem; justify-content:center}
+.chip{position:relative; font:inherit; font-weight:700; min-width:44px; height:44px; border-radius:10px; border:2px solid #8fa0bb; background:#fff; cursor:pointer; flex:0 0 auto}
+.chip.ans{background:#dbe8fb; border-color:var(--selb)}
+.chip.cur{border-width:4px; border-color:var(--navy)}
+.chip .fl{position:absolute; top:-9px; right:-7px; font-size:.95rem}
+
+.rv{width:100%; border-collapse:collapse}
+.rv th,.rv td{border-bottom:2px solid var(--line); padding:.5rem; text-align:left}
+.st-ok{color:var(--good); font-weight:700} .st-no{color:var(--bad); font-weight:700}
+.big{font-family:var(--head); font-size:2.4rem; font-weight:700}
+details.ritem{border:2px solid var(--line); border-radius:10px; margin:.5rem 0; background:#fff}
+details.ritem summary{padding:.6rem .8rem; cursor:pointer; font-weight:700; min-height:44px}
+details.ritem .rb{padding:.2rem .9rem .8rem}
+
+/* reward + certificate */
+.reward{text-align:center; border:4px solid var(--tacc); box-shadow:6px 6px 0 var(--navy)}
+.reward .sticker{font-size:5.5rem; line-height:1.1; display:inline-block; background:#fff7cf; border:4px solid var(--navy); border-radius:50%; width:150px; height:150px; display:grid; place-items:center; margin:.3rem auto}
+.reward h1{font-family:var(--head); font-size:2rem}
+.gain{display:inline-block; background:var(--navy); color:var(--yellow); border-radius:999px; padding:.2rem 1rem; font-weight:700; font-size:1.2rem; margin:.3rem 0}
+.sbook{display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:.6rem}
+.sticker-s{border:3px dashed var(--navy); border-radius:14px; padding:.5rem; text-align:center; background:#fff}
+.sticker-s .se{font-size:2.4rem; display:block}
+.sticker-s.lock{filter:grayscale(1); opacity:.5; border-style:dotted}
+.cert{text-align:center; border:10px double var(--navy); padding:2rem 1.2rem; background:#fffdf3; border-radius:6px}
+.cert h1{font-family:var(--head); font-size:2.2rem}
+.cert .nm2{font-family:var(--head); font-size:2.4rem; border-bottom:3px solid var(--navy); display:inline-block; padding:0 1.5rem; margin:.5rem 0}
+
+#toast{position:fixed; left:50%; bottom:calc(5.5rem + env(safe-area-inset-bottom,0px)); transform:translate(-50%,20px); opacity:0; pointer-events:none; z-index:60; background:var(--navy); color:#fff; border:3px solid var(--yellow); border-radius:14px; padding:.65rem 1.1rem; font-weight:700; max-width:92vw; text-align:center; transition:opacity .25s, transform .25s}
+#toast.show{opacity:1; transform:translate(-50%,0)}
+.cf{position:fixed; left:50%; top:55%; font-size:1.7rem; pointer-events:none; z-index:50; animation:cf 1.3s ease-out forwards}
+@keyframes cf{0%{transform:translate(0,0) rotate(0) scale(.5); opacity:1}100%{transform:translate(var(--dx),var(--dy)) rotate(var(--r)) scale(1.1); opacity:0}}
+
+@media (max-width:860px){
+  .grid{grid-template-columns:1fr}
+  .ppane{max-height:42vh} .qpane{max-height:none}
+  .wrap{padding:.8rem .7rem 6.5rem}
+}
+@media (max-width:520px){ .foot-in .btn{padding:.5rem .6rem} }
+@media (prefers-reduced-motion:reduce){ .cf{animation:none} #toast{transition:none} }
+@media print{ #hud,.foot,.noprint,#toast{display:none !important} body{background:#fff} .wrap{padding:0} }
+</style>
+</head>
+<body>
+<header id="hud"></header>
+<main class="wrap" id="app"></main>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ===== Teacher setting =====
+   Paste your Google Form link between the quotes to show an "Open the form" button. */
+const FORM_URL = "";
+
+const L = ["A","B","C","D","E"];
+const KEYS = ["purpose","structure","inference","appeals","writing"];
+
+/* ===== Skills, standards, and rewards ===== */
+const SK = {
+  purpose: { n: "Author’s purpose and perspective", s: "Author’s purpose", e: "🎯", c: "#c2185b",
+    sticker: { e: "🎯", n: "Purpose Pro" },
+    std: [ { c: "ELA.6.R.2.3", t: "Analyze authors’ purpose(s) in multiple accounts of the same event or topic." },
+           { c: "ELA.K12.EE.1.1", t: "Cite evidence to explain and justify reasoning." } ] },
+  structure: { n: "Text structure", s: "Text structure", e: "🧱", c: "#00796b",
+    sticker: { e: "🏗️", n: "Structure Star" },
+    std: [ { c: "ELA.6.R.2.1", t: "Explain how individual text sections and/or features convey meaning in texts." } ] },
+  inference: { n: "Inferencing", s: "Inferencing", e: "🧩", c: "#5e35b1",
+    sticker: { e: "🧠", n: "Inference Ace" },
+    std: [ { c: "ELA.K12.EE.3.1", t: "Make inferences to support comprehension." },
+           { c: "ELA.K12.EE.1.1", t: "Cite evidence to explain and justify reasoning." } ] },
+  appeals: { n: "Rhetorical appeals", s: "Rhetorical appeals", e: "📣", c: "#c2570a",
+    sticker: { e: "📣", n: "Appeals Expert" },
+    std: [ { c: "ELA.6.R.3.4", t: "Identify rhetorical appeals in a text." } ] },
+  writing: { n: "Expository writing", s: "Expository writing", e: "✍️", c: "#1565c0",
+    sticker: { e: "✍️", n: "Writing Wizard" },
+    std: [ { c: "ELA.6.C.1.4", t: "Write expository texts to explain and/or analyze information from multiple sources, using a logical organizational structure, relevant elaboration, and varied transitions." },
+           { c: "ELA.6.C.1.5", t: "Improve writing by planning, revising, and editing, considering feedback from adults and peers." } ] }
+};
+function stdCodes(k){ return SK[k].std.map(s=>s.c).join(", "); }
+
+/* ===== Missions ===== */
+const TESTS = [
+  /* ---------- 1. Author's purpose and perspective ---------- */
+  { id: "purpose", skill: "purpose", title: "Let Us Sleep!", genre: "Informational text (opinion article by a student)",
+    paras: [
+      ["My alarm goes off at 5:45 every school day, and I am always tired.", "I am not alone.", "Walk into any first-period class at our middle school, and you will see heads resting on desks and students yawning behind their hands."],
+      ["The problem is simple: school begins at 7:15, but our bodies are not ready.", "Doctors recommend that students our age get at least nine hours of sleep.", "Because many of us cannot fall asleep before ten o’clock, waking up at dawn leaves us short on rest."],
+      ["Tired students struggle to focus.", "When I am sleepy, I read the same sentence three times and still do not understand it.", "Teachers notice, too.", "Mr. Alvarez, our science teacher, says that his first-period class answers far fewer questions than his afternoon classes."],
+      ["Some people argue that a later start would make bus routes and sports schedules too complicated.", "These concerns are fair, but they can be solved.", "Schools in other towns have already adjusted their bus routes and moved practices to after school.", "If they can do it, so can we."],
+      ["Our school board should vote to start the school day at 8:30.", "A later bell would give students the rest they need, and it would help everyone learn better.", "Please sign the petition at the front office before Friday."]
+    ],
+    items: [
+      { type: "mc", stem: "What is the author’s main purpose for writing this passage?",
+        options: ["To inform readers about how sleep works in the human body", "To persuade the school board and readers to support a later start time", "To entertain readers with a funny story about mornings", "To explain how to set an alarm clock"], correct: 1,
+        explain: "The author gives an opinion, reasons, and a call to action. That is a persuasive purpose." },
+      { type: "hot", stem: "Select the sentence in paragraph 5 that directly asks readers to take action.", para: 5, n: 1, correct: [2],
+        explain: "“Please sign the petition…” asks readers to do something. The first sentence says what the board should do, but it does not ask the reader to act." },
+      { type: "mc", stem: "Which statement best describes the author’s perspective on school start times?",
+        options: ["School starts too early, and that makes it harder for students to learn.", "School starts at a good time, but students need to go to bed earlier.", "School start times are not important to students.", "School should start earlier so students have more time after school."], correct: 0,
+        explain: "The author says that 7:15 is too early and that tired students struggle to focus." },
+      { type: "ms", stem: "Which TWO sentences show that the author wants to convince readers rather than only inform them?", n: 2,
+        options: ["“Our school board should vote to start the school day at 8:30.”", "“Doctors recommend that students our age get at least nine hours of sleep.”", "“Please sign the petition at the front office before Friday.”", "“Mr. Alvarez, our science teacher, says that his first-period class answers far fewer questions than his afternoon classes.”"], correct: [0, 2],
+        explain: "A claim about what should happen and a direct request for action are signs of persuasion. Facts and expert evidence can appear in a text that only informs." },
+      { type: "ebsr", stem: "",
+        parts: [
+          { stem: "What can the reader infer about how the author views people who disagree?",
+            options: ["The author respects their concerns but believes there are answers.", "The author thinks their concerns are silly.", "The author is afraid to argue with them.", "The author does not know what their concerns are."], correct: 0 },
+          { stem: "Which sentence from the passage best supports the answer to Part A?",
+            options: ["“I am not alone.”", "“Teachers notice, too.”", "“These concerns are fair, but they can be solved.”", "“Please sign the petition at the front office before Friday.”"], correct: 2 }
+        ],
+        explain: "Calling the concerns “fair” shows respect, and “they can be solved” shows the author has answers." },
+      { type: "mc", stem: "Why does the author include paragraph 4 about bus routes and sports schedules?",
+        options: ["To show that the author has considered the other side and can answer it", "To prove that bus routes can never be changed", "To change the topic to sports", "To show that the author does not care about buses"], correct: 0,
+        explain: "Mentioning the opposing view and then answering it makes the argument stronger and shows the author’s perspective is well thought out." },
+      { type: "mc", stem: "Why does the author begin with details about the 5:45 alarm and sleepy classmates?",
+        options: ["To help readers understand the problem by sharing a personal experience", "To prove that all students wake up at 5:45", "To explain how alarms work", "To show that the author dislikes school"], correct: 0,
+        explain: "A personal opening helps readers connect with the problem before the author makes the argument." }
+    ] },
+
+  /* ---------- 2. Text structure ---------- */
+  { id: "structure", skill: "structure", title: "The Long Flight of the Monarchs", genre: "Informational text",
+    paras: [
+      ["Every autumn, millions of monarch butterflies leave Canada and the northern United States and begin a journey of up to 3,000 miles.", "Their destination is a patch of mountain forest in central Mexico.", "Because monarchs weigh less than a paperclip, the trip seems almost impossible."],
+      ["The monarchs travel south for a good reason.", "Cold weather kills the milkweed plants that monarch caterpillars eat, and a butterfly cannot survive freezing nights.", "As a result, the insects must move to a warmer place or they will not survive."],
+      ["Scientists once wondered how monarchs found the same forests each year, since the butterflies making the trip had never been there before.", "The generation that flies south is born in late summer and lives for months, much longer than its parents, who live only a few weeks.", "Researchers now believe monarchs steer by the position of the sun, along with an internal clock."],
+      ["In recent decades, a serious problem has appeared.", "Farmers have cleared fields where milkweed once grew wild, and the number of monarchs has dropped sharply.", "Without milkweed, female monarchs have nowhere to lay their eggs."],
+      ["Ordinary people are helping to solve this problem.", "Schools and families plant milkweed in gardens, creating “monarch waystations” along the migration route.", "Every small garden gives the butterflies a place to rest and feed, and the effort is already making a difference."]
+    ],
+    items: [
+      { type: "mc", stem: "Which text structure does the author mainly use in paragraph 2?",
+        options: ["Sequence", "Cause and effect", "Compare and contrast", "Description"], correct: 1,
+        explain: "Cold weather kills the milkweed (the cause), so the monarchs must move south (the effect). “As a result” is a signal phrase for cause and effect." },
+      { type: "match", stem: "Each sentence from the passage shows a text structure. Select the box that matches each sentence to its text structure.",
+        rows: ["Ordinary people are helping to solve this problem.", "Because monarchs weigh less than a paperclip, the trip seems almost impossible.", "The generation that flies south is born in late summer and lives for months, much longer than its parents, who live only a few weeks."],
+        cols: ["Cause and effect", "Problem and solution", "Compare and contrast"], correct: [1, 0, 2],
+        explain: "“Solve this problem” signals problem and solution. “Because” signals cause and effect. “Much longer than its parents” compares two generations." },
+      { type: "hot", stem: "Select the sentence in paragraph 2 that begins with a signal phrase showing an effect.", para: 2, n: 1, correct: [2],
+        explain: "“As a result” tells the reader that an effect is coming. The effect is that the monarchs must move to a warmer place." },
+      { type: "ms", stem: "Which TWO signal words or phrases in the passage show cause and effect?", n: 2,
+        options: ["“Because” (paragraph 1)", "“As a result” (paragraph 2)", "“In recent decades” (paragraph 4)", "“Every autumn” (paragraph 1)"], correct: [0, 1],
+        explain: "“Because” and “as a result” connect causes to effects. “In recent decades” and “Every autumn” are time words." },
+      { type: "mc", stem: "How does paragraph 1 contribute to the passage as a whole?",
+        options: ["It introduces the monarch migration and shows why the trip seems amazing.", "It explains how people can help monarchs.", "It compares monarchs with other butterflies.", "It lists the steps monarchs take to find milkweed."], correct: 0,
+        explain: "Paragraph 1 introduces the topic, the distance, and the destination. It also shows why the journey is surprising." },
+      { type: "mc", stem: "How do paragraphs 4 and 5 work together in the passage?",
+        options: ["Paragraph 4 describes a problem, and paragraph 5 describes what people are doing to help solve it.", "Paragraph 4 explains the steps of a process, and paragraph 5 gives the final step.", "Paragraph 4 compares two kinds of butterflies, and paragraph 5 compares two kinds of gardens.", "Paragraph 4 tells a story, and paragraph 5 gives the author’s opinion of the story."], correct: 0,
+        explain: "Paragraph 4 names the problem (fewer milkweed fields, fewer monarchs). Paragraph 5 gives a solution (planting milkweed gardens)." },
+      { type: "mc", stem: "Which statement best describes how the whole passage is organized?",
+        options: ["It follows one butterfly through the seasons of a single year.", "It compares monarchs from Canada with monarchs from Mexico.", "It describes the migration and why it happens, then presents a problem and its solutions.", "It explains one cause and lists all of its effects."], correct: 2,
+        explain: "Paragraphs 1 to 3 describe and explain the migration. Paragraphs 4 and 5 present a problem and what people are doing about it." }
+    ] },
+
+  /* ---------- 3. Inferencing ---------- */
+  { id: "inference", skill: "inference", title: "The Seat by the Window", genre: "Literary text (short story)",
+    paras: [
+      ["On Eli’s first day at Brookside Middle School, the bus rumbled past rows of unfamiliar houses.", "He pressed his forehead against the cold window and counted the stop signs.", "Fourteen.", "At his old school in Ohio, he had known every stop by heart."],
+      ["When the bus doors hissed open, Eli stepped off and gripped his backpack straps with both hands.", "Kids streamed past him in noisy clumps, calling out to friends.", "Nobody called out to him."],
+      ["In the cafeteria, Eli carried his tray to the far end of an empty table.", "He unwrapped his sandwich slowly, as if it were a complicated science experiment, and studied each bite for a very long time."],
+      ["“Is that the Cleveland skyline?” a voice asked.", "A girl with a bright orange backpack was pointing at the sketchbook peeking out of Eli’s bag.", "Eli blinked.", "He had not said a word to anyone all morning, and his voice came out as a squeak.", "“Yeah,” he said. “I miss it.”"],
+      ["“I’m Dani,” the girl said, sliding her tray across from his.", "“Draw me the skyline, and I’ll show you where the best tacos are in this town.”", "She grinned.", "Eli felt the tight knot in his stomach begin to loosen."],
+      ["That afternoon, when the bus pulled away from the school, Eli sat in the same seat by the window.", "This time he did not count stop signs.", "He was too busy sketching a picture of his new friend with the bright orange backpack."]
+    ],
+    items: [
+      { type: "mc", stem: "What can the reader infer about how Eli feels at the beginning of the story?",
+        options: ["He is excited to explore a new town.", "He is nervous and misses his old home.", "He is angry that the bus is late.", "He is bored by the long ride."], correct: 1,
+        explain: "Eli counts stop signs, grips his straps, and remembers knowing every stop at his old school. These clues point to nervousness and homesickness." },
+      { type: "ebsr", stem: "",
+        parts: [
+          { stem: "What can the reader infer about Eli’s first morning at his new school?",
+            options: ["Eli feels like an outsider because he does not know anyone at his new school.", "Eli dislikes riding the bus because it is too noisy.", "Eli is angry that his family moved to a new town.", "Eli is unfriendly and does not want to talk to anyone."], correct: 0 },
+          { stem: "Which sentence from the story best supports the answer to Part A?",
+            options: ["“She grinned.”", "“Nobody called out to him.”", "“A girl with a bright orange backpack was pointing at the sketchbook peeking out of Eli’s bag.”", "“This time he did not count stop signs.”"], correct: 1 }
+        ],
+        explain: "Other kids call out to friends, but “Nobody called out to him.” That shows Eli is on the outside. The other sentences show friendliness or change later in the story." },
+      { type: "match", stem: "Each detail from the story shows something about how Eli feels. Select the box that matches each detail to the feeling it shows.",
+        rows: ["“Yeah,” he said. “I miss it.”", "He was too busy sketching a picture of his new friend with the bright orange backpack.", "Eli stepped off and gripped his backpack straps with both hands."],
+        cols: ["Nervous", "Homesick", "Happy"], correct: [1, 2, 0],
+        explain: "Missing Cleveland shows homesickness. Being busy sketching a friend shows he is happy. A tight grip on his straps shows nerves." },
+      { type: "hot", stem: "Select the sentence in paragraph 5 that shows Eli’s feelings are beginning to change.", para: 5, n: 1, correct: [3],
+        explain: "“The tight knot in his stomach begin to loosen” shows Eli is starting to relax because of Dani’s kindness." },
+      { type: "mc", stem: "What can the reader infer about Dani?",
+        options: ["She is kind and friendly, and she notices when someone is alone.", "She is shy and prefers to eat alone.", "She is jealous of Eli’s drawing skills.", "She is also new to the school and the town."], correct: 0,
+        explain: "Dani speaks first, sits with Eli, and offers to show him around. These actions show she is kind and friendly." },
+      { type: "mc", stem: "What can the reader infer from the sentence “This time he did not count stop signs”?",
+        options: ["Eli no longer feels nervous and lonely.", "Eli forgot how many stop signs there were.", "Eli is angry that the bus stops so often.", "Eli wants to go back to his old school."], correct: 0,
+        explain: "In the morning Eli counted stop signs to cope with his nerves. Now he is busy sketching a friend, so he does not need to." },
+      { type: "ms", stem: "Which TWO details best support the inference that Eli feels lonely in the cafeteria?", n: 2,
+        options: ["He carried his tray to the far end of an empty table.", "A girl with a bright orange backpack pointed at his sketchbook.", "He had not said a word to anyone all morning.", "Dani grinned and slid her tray across from his."], correct: [0, 2],
+        explain: "Sitting far away at an empty table and not speaking all morning both show Eli is alone. The other details show Dani’s friendliness." },
+      { type: "mc", stem: "What can the reader infer about why Eli studies his sandwich “as if it were a complicated science experiment”?",
+        options: ["He is trying to look busy because he feels awkward eating alone.", "He wants to learn how to do a science experiment.", "He loves science more than anything.", "The sandwich looks strange and unusual."], correct: 0,
+        explain: "The playful comparison shows Eli is acting busy so he will not seem lonely. His actions reveal his feelings." }
+    ] },
+
+  /* ---------- 4. Rhetorical appeals ---------- */
+  { id: "appeals", skill: "appeals", title: "Save Willow Creek Park", genre: "Persuasive letter",
+    paras: [
+      ["For twenty years, I have worked as a park ranger at Willow Creek Park, and I have never seen it as endangered as it is today.", "The city council plans to replace the park’s fields and trees with a parking garage.", "I am writing to ask you to speak out against this plan at Thursday’s council meeting."],
+      ["Picture the sound of children laughing as they race down the hill on a Saturday morning.", "Imagine families spreading blankets under the oak trees where generations of our town have celebrated birthdays.", "Now imagine that same hill silent, covered in concrete."],
+      ["The facts are clear.", "A recent town survey found that four out of five families visit the park at least once a week.", "The park’s trees also keep the neighborhood cooler, lowering summer temperatures by several degrees.", "A parking garage would take away both."],
+      ["Dr. Maria Santos, a biologist at Central State University, has studied the park’s creek for ten years.", "She reports that more than sixty kinds of birds depend on the park’s trees.", "“Once those trees are gone,” she warns, “the birds will not come back.”"],
+      ["Our town can find another place for parking, but we cannot replace this park.", "Please join me on Thursday at 7 p.m. and speak up for Willow Creek Park."]
+    ],
+    items: [
+      { type: "mc", stem: "Why does the author describe Dr. Santos as “a biologist at Central State University” who has studied the creek for ten years?",
+        options: ["To show that she is a trusted expert (ethos)", "To make readers feel sad about the park (pathos)", "To give a statistic about park visitors (logos)", "To entertain readers with a story"], correct: 0,
+        explain: "Naming her job and experience makes her a credible source. Building trust is called ethos." },
+      { type: "match", stem: "Each sentence from the passage uses a rhetorical appeal. Select the box that matches each sentence to its appeal.",
+        rows: ["A recent town survey found that four out of five families visit the park at least once a week.", "Dr. Maria Santos, a biologist at Central State University, has studied the park’s creek for ten years.", "Now imagine that same hill silent, covered in concrete."],
+        cols: ["Ethos", "Pathos", "Logos"], correct: [2, 0, 1],
+        explain: "The survey is facts and numbers (logos). Dr. Santos’s expertise builds credibility (ethos). Picturing a silent hill makes readers feel sad (pathos)." },
+      { type: "hot", stem: "Select the sentence in paragraph 3 that uses a statistic as evidence.", para: 3, n: 1, correct: [1],
+        explain: "“Four out of five families” is a statistic. Using numbers and facts is an appeal to logic (logos)." },
+      { type: "ebsr", stem: "",
+        parts: [
+          { stem: "Which rhetorical appeal does the author mainly use in paragraph 2?",
+            options: ["Ethos, because the author is an expert", "Pathos, because the author appeals to readers’ emotions", "Logos, because the author gives facts and numbers", "None, because the author is only describing the park"], correct: 1 },
+          { stem: "Which phrase best supports the answer to Part A?",
+            options: ["“A recent town survey found that four out of five families visit the park”", "“For twenty years, I have worked as a park ranger”", "“Picture the sound of children laughing as they race down the hill”", "“Please join me on Thursday at 7 p.m.”"], correct: 2 }
+        ],
+        explain: "Paragraph 2 asks readers to picture happy moments in the park. Appealing to feelings is pathos." },
+      { type: "mc", stem: "What is the effect of the sentence “Now imagine that same hill silent, covered in concrete”?",
+        options: ["It makes readers feel sad about losing the park.", "It proves that the parking garage will cost too much.", "It shows that the author is a trusted expert.", "It gives readers directions to the park."], correct: 0,
+        explain: "The image of a silent, concrete hill is meant to stir sadness and make readers want to protect the park. That is pathos." },
+      { type: "mc", stem: "Why does the author use credibility, emotion, and facts together?",
+        options: ["Using all three makes the argument more convincing to many kinds of readers.", "The author could not decide which appeal was best.", "Each appeal repeats exactly the same idea.", "Persuasive writing must use exactly three paragraphs."], correct: 0,
+        explain: "Some readers trust experts, some respond to feelings, and some want facts. Using all three appeals reaches more people." },
+      { type: "match", stem: "These sentences come from advertisements. Select the box that matches each sentence to its rhetorical appeal.",
+        rows: ["“Dr. Chen, a heart doctor for thirty years, wears our walking shoes every day.”", "“Don’t let your puppy feel lonely another night. Adopt today.”", "“These shoes weigh 20% less than the leading brand and last twice as long.”"],
+        cols: ["Ethos", "Pathos", "Logos"], correct: [0, 1, 2],
+        explain: "A doctor’s experience is ethos. A lonely puppy aims at feelings (pathos). Percentages and comparisons are logos." }
+    ] },
+
+  /* ---------- 5. Expository writing ---------- */
+  { id: "writing", skill: "writing", kind: "writing", title: "Surviving the Desert Heat", genre: "Expository writing task with two sources",
+    sources: [
+      { title: "Source 1: Hiding From the Heat", paras: [
+        "Desert daytime temperatures can climb above 110 degrees Fahrenheit, so many animals avoid the sun altogether. The kangaroo rat spends the day in an underground burrow, where the air is cooler and more humid. It comes out only at night to search for seeds.",
+        "Burrows protect animals from more than heat. They also hide them from hungry predators. A burrow just a few feet deep can be many degrees cooler than the sand above it." ] },
+      { title: "Source 2: Built for the Desert", paras: [
+        "Some animals survive the heat because of the way their bodies are built. The fennec fox has enormous ears filled with tiny blood vessels. As blood flows through the ears, extra heat escapes into the air, which helps the fox cool down.",
+        "Water is just as important as staying cool. A camel’s hump stores fat, which gives the camel energy when food is scarce. Kangaroo rats rarely drink at all. They get nearly all the water they need from the seeds they eat." ] }
+    ],
+    prompt: "Desert animals live where it is extremely hot and dry. Using information from BOTH sources, write an essay that explains how desert animals survive in extreme heat. Write an introduction, at least two body paragraphs, and a conclusion. Use transitions, explain the details in your own words, and do not copy sentences from the sources.",
+    plan: ["My main idea (what my essay will explain):", "A detail from Source 1 that I will use:", "A detail from Source 2 that I will use:"],
+    selfCheck: ["My introduction tells the topic of my essay.", "I used details from Source 1 and Source 2.", "I explained the details in my own words.", "I used transitions to connect my ideas.", "My conclusion wraps up my main idea.", "I checked spelling, capital letters, and punctuation."],
+    keys1: ["burrow", "underground", "night", "cooler", "predator"],
+    keys2: ["fennec", "ears", "blood vessels", "camel", "hump", "fat", "drink"],
+    max: 7 }
+];
+TESTS.forEach(t => { t.color = SK[t.skill].c; if (!t.max) t.max = t.items.reduce((n,it)=>n+(it.type==="ebsr"?2:1),0); });
+
+/* ===== Ranks and badges ===== */
+const RANKS = [
+  { x: 0,   n: "Rookie",           e: "🐣" },
+  { x: 120, n: "Sleuth",           e: "🔍" },
+  { x: 260, n: "Detective",        e: "🕵️" },
+  { x: 400, n: "Senior Detective", e: "🎖️" },
+  { x: 540, n: "Chief",            e: "👑" }
+];
+const BADGES = [
+  { id: "first",   e: "🥇", n: "First mission",   d: "Complete a mission",             ok: () => doneCount() >= 1 },
+  { id: "sharp",   e: "🎯", n: "Sharp reader",    d: "Score 80% or higher",            ok: () => TESTS.some(t => pctOfTest(t.id) >= 80) },
+  { id: "perfect", e: "🌟", n: "Perfect score",   d: "Get every point on a mission",   ok: () => TESTS.some(t => pctOfTest(t.id) >= 100) },
+  { id: "writer",  e: "📝", n: "Published writer",d: "Submit your essay",              ok: () => isDone("writing") },
+  { id: "all",     e: "🧠", n: "Case closed",     d: "Complete all five missions",     ok: () => doneCount() >= TESTS.length },
+  { id: "ears",    e: "🎧", n: "Eagle ears",      d: "Use read-aloud",                 ok: () => state.usedTTS }
+];
+
+/* ===== Storage ===== */
+const PREFIX = "readingPracticeTest.v3.";
+let CAN_SAVE = false;
+try { localStorage.setItem(PREFIX+"t","1"); localStorage.removeItem(PREFIX+"t"); CAN_SAVE = true; } catch(e){}
+function pkey(n){ return PREFIX + "player." + n.trim().toLowerCase().replace(/\s+/g," "); }
+function lsGet(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
+function lsSet(k,v){ try { localStorage.setItem(k,v); return true; } catch(e){ return false; } }
+
+const settings = Object.assign({ rate: 1, auto: false, fs: 1 }, (()=>{ try { return JSON.parse(lsGet(PREFIX+"settings")||"{}"); } catch(e){ return {}; } })());
+function saveSettings(){ lsSet(PREFIX+"settings", JSON.stringify(settings)); applyFs(); }
+function applyFs(){ document.documentElement.style.setProperty("--fs", settings.fs); }
+applyFs();
+
+const state = { name: "", view: "welcome", tid: null, showSettings: false, confirmSubmit: false, welcomeMsg: "", savedAt: null, reward: null, tests: {}, badges: [], usedTTS: false };
+function freshProgress(){ return { tests: {}, badges: [], usedTTS: false }; }
+function save(){
+  if (!CAN_SAVE || !state.name) return;
+  const data = { name: state.name, tests: state.tests, badges: state.badges, usedTTS: state.usedTTS, savedAt: Date.now() };
+  if (lsSet(pkey(state.name), JSON.stringify(data))){ lsSet(PREFIX+"last", state.name); state.savedAt = data.savedAt; }
+}
+let saveTimer = null;
+function schedSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(save, 400); }
+function loadPlayer(name){
+  const raw = lsGet(pkey(name)); if (!raw) return false;
+  try { const d = JSON.parse(raw);
+    Object.assign(state, { tests: d.tests || {}, badges: d.badges || [], usedTTS: !!d.usedTTS, savedAt: d.savedAt || null, name: d.name || name }); return true;
+  } catch(e){ return false; }
+}
+
+/* ===== Helpers ===== */
+const app = document.getElementById("app"), hud = document.getElementById("hud"), toastEl = document.getElementById("toast");
+const REDUCED = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function esc(s){ return String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function curTest(){ return TESTS.find(t=>t.id===state.tid); }
+function rec(tid){
+  const d = { ans:{}, flags:{}, strike:{}, idx:0, status:"new", res:null, write:{ plan:["","",""], text:"", self:{} } };
+  return (state.tests[tid] = Object.assign(d, state.tests[tid] || {}));
+}
+function isDone(tid){ const r = state.tests[tid]; return !!(r && r.status === "done" && r.res); }
+function doneCount(){ return TESTS.filter(t=>isDone(t.id)).length; }
+function pctOfTest(tid){ const r = state.tests[tid]; return isDone(tid) ? Math.round(r.res.pts / r.res.max * 100) : 0; }
+function starsOf(p){ return p >= 95 ? 3 : p >= 80 ? 2 : 1; }
+function starIcons(n){ return "⭐".repeat(n); }
+function totalStars(){ return TESTS.reduce((n,t)=> n + (isDone(t.id) ? starsOf(pctOfTest(t.id)) : 0), 0); }
+function xpOf(res){ return res.pts * 10 + 50; }
+function totalXP(){ return TESTS.reduce((n,t)=> n + (isDone(t.id) ? xpOf(state.tests[t.id].res) : 0), 0); }
+function rankIdx(xp){ let i = 0; RANKS.forEach((r,n)=>{ if (xp >= r.x) i = n; }); return i; }
+
+const toastQ = []; let toastBusy = false;
+function toast(msg){ toastQ.push(msg); if (!toastBusy) nextToast(); }
+function nextToast(){
+  const m = toastQ.shift(); if (!m){ toastBusy = false; return; }
+  toastBusy = true; toastEl.textContent = m; toastEl.classList.add("show");
+  setTimeout(()=>{ toastEl.classList.remove("show"); setTimeout(nextToast, 300); }, 2800);
+}
+function confetti(n){
+  if (REDUCED) return;
+  const bits = ["🎉","⭐","✨","💜","💛","🩷"];
+  for (let i=0;i<n;i++){
+    const s = document.createElement("span"); s.className = "cf"; s.textContent = bits[Math.floor(Math.random()*bits.length)];
+    s.style.setProperty("--dx", (Math.random()*560-280)+"px"); s.style.setProperty("--dy", (-120-Math.random()*320)+"px"); s.style.setProperty("--r", (Math.random()*720-360)+"deg");
+    s.style.animationDelay = (Math.random()*0.15)+"s"; document.body.appendChild(s); setTimeout(()=>s.remove(), 1700);
+  }
+}
+function checkBadges(){ BADGES.forEach(b=>{ if (!state.badges.includes(b.id) && b.ok()){ state.badges.push(b.id); toast(`${b.e} New badge: ${b.n}!`); } }); }
+function afterProgress(){ checkBadges(); save(); }
+
+/* ===== Scoring: reading ===== */
+function scoreItem(it, a){
+  switch (it.type){
+    case "mc": return { pts: a === it.correct ? 1 : 0, max: 1 };
+    case "ms": case "hot": { const ok = Array.isArray(a) && a.length === it.correct.length && a.every(x=>it.correct.includes(x)); return { pts: ok?1:0, max: 1 }; }
+    case "ebsr": { const p = it.parts.map((pt,i)=> a && a[i] === pt.correct ? 1 : 0); return { pts: p[0]+p[1], max: 2 }; }
+    case "match": { const ok = Array.isArray(a) && it.correct.every((c,i)=>a[i] === c); return { pts: ok?1:0, max: 1 }; }
+  }
+  return { pts: 0, max: 1 };
+}
+function isAnswered(it, a){
+  if (a == null) return false;
+  switch (it.type){
+    case "mc": return typeof a === "number";
+    case "ms": return Array.isArray(a) && a.length === it.n;
+    case "ebsr": return typeof a[0] === "number" && typeof a[1] === "number";
+    case "match": return Array.isArray(a) && it.rows.every((_,i)=>typeof a[i] === "number");
+    case "hot": return Array.isArray(a) && a.length === (it.n||1);
+  }
+  return false;
+}
+function answeredCount(t, r){ return t.items.filter((it,i)=>isAnswered(it, r.ans[i])).length; }
+function gradeReading(t, r){
+  let pts = 0, max = 0; const items = [];
+  t.items.forEach((it,i)=>{ const s = scoreItem(it, r.ans[i]); pts += s.pts; max += s.max; items.push(s.pts); });
+  return { pts, max, items, ans: JSON.parse(JSON.stringify(r.ans)), at: Date.now() };
+}
+function ansText(t, it, a){
+  const none = "(no answer)";
+  switch (it.type){
+    case "mc": return typeof a === "number" ? `${L[a]}. ${it.options[a]}` : none;
+    case "ms": return Array.isArray(a) && a.length ? a.slice().sort().map(i=>`${L[i]}. ${it.options[i]}`).join("  |  ") : none;
+    case "ebsr": return it.parts.map((p,i)=>`Part ${"AB"[i]}: ${a && typeof a[i]==="number" ? L[a[i]]+". "+p.options[a[i]] : none}`).join("  |  ");
+    case "match": return it.rows.map((r,i)=>`${r} → ${a && typeof a[i]==="number" ? it.cols[a[i]] : none}`).join("  |  ");
+    case "hot": return Array.isArray(a) && a.length ? a.map(s=>t.paras[it.para-1][s]).join(" ") : none;
+  }
+  return none;
+}
+function correctText(t, it){
+  switch (it.type){
+    case "mc": return `${L[it.correct]}. ${it.options[it.correct]}`;
+    case "ms": return it.correct.map(i=>`${L[i]}. ${it.options[i]}`).join("  |  ");
+    case "ebsr": return it.parts.map((p,i)=>`Part ${"AB"[i]}: ${L[p.correct]}. ${p.options[p.correct]}`).join("  |  ");
+    case "match": return it.rows.map((r,i)=>`${r} → ${it.cols[it.correct[i]]}`).join("  |  ");
+    case "hot": return it.correct.map(s=>t.paras[it.para-1][s]).join(" ");
+  }
+  return "";
+}
+
+/* ===== Scoring: writing (checks what a computer can see) ===== */
+const TRANSITIONS = ["first","second","third","next","then","finally","in addition","also","for example","for instance","another","furthermore","however","because","as a result","therefore","in conclusion","overall","in summary","similarly","most importantly","for this reason","one way","another way","additionally","in fact","this means","so that"];
+function countWords(s){ return (String(s).match(/[A-Za-z0-9][A-Za-z0-9’'-]*/g) || []).length; }
+function norm(s){ return String(s).toLowerCase().replace(/[’']/g,"").replace(/[^a-z0-9\s]/g," ").replace(/\s+/g," ").trim(); }
+function gradeWriting(t, r){
+  const text = (r.write.text || "").trim(), words = countWords(text);
+  const paras = text.split(/\n+/).map(s=>s.trim()).filter(Boolean);
+  const low = text.toLowerCase();
+  const found1 = t.keys1.filter(k=>low.indexOf(k) > -1), found2 = t.keys2.filter(k=>low.indexOf(k) > -1);
+  const trans = TRANSITIONS.filter(w=>new RegExp("\\b"+w+"\\b","i").test(text));
+  const lastPara = paras.length ? paras[paras.length-1] : "";
+  const concl = /in conclusion|overall|in summary|to sum up|all in all|in short|as you can see|these (adaptations|animals|desert)/i.test(lastPara) && paras.length >= 2;
+  // copied-text check: any run of 8 words that appears in the sources
+  const src = norm(t.sources.map(s=>s.paras.join(" ")).join(" ")).split(" "), mine = norm(text).split(" ");
+  const shingles = new Set(); for (let i=0;i+8<=src.length;i++) shingles.add(src.slice(i,i+8).join(" "));
+  let copied = false; for (let i=0;i+8<=mine.length;i++){ if (shingles.has(mine.slice(i,i+8).join(" "))){ copied = true; break; } }
+  const checks = [
+    { ok: words >= 120, label: "Length: at least 120 words", note: `You wrote ${words} words.` },
+    { ok: paras.length >= 3, label: "Organization: at least 3 paragraphs (introduction, body, conclusion)", note: `You wrote ${paras.length} paragraph${paras.length===1?"":"s"}. Press Enter to start a new paragraph.` },
+    { ok: found1.length >= 2, label: "Source 1: used at least 2 details", note: found1.length ? `Details found: ${found1.join(", ")}.` : "No details from Source 1 found." },
+    { ok: found2.length >= 2, label: "Source 2: used at least 2 details", note: found2.length ? `Details found: ${found2.join(", ")}.` : "No details from Source 2 found." },
+    { ok: trans.length >= 3, label: "Transitions: at least 3 different transition words or phrases", note: trans.length ? `Found: ${trans.join(", ")}.` : "No transitions found." },
+    { ok: concl, label: "Conclusion: a closing paragraph with a wrap-up signal (like In conclusion or Overall)", note: concl ? "Conclusion signal found." : "No conclusion signal found in your last paragraph." },
+    { ok: words >= 40 && !copied, label: "Own words: no long phrases copied from the sources", note: words < 40 ? "Write more so this can be checked." : copied ? "Part of your writing matches the sources word for word." : "No copied phrases found." }
+  ];
+  const pts = checks.filter(c=>c.ok).length;
+  return { pts, max: checks.length, checks, words, paragraphs: paras.length, text, plan: r.write.plan.slice(), at: Date.now() };
+}
+
+/* ===== Read aloud ===== */
+const synth = window.speechSynthesis || null;
+function plain(html){
+  const d = document.createElement("div"); d.innerHTML = String(html).replace(/➜/g," then ").replace(/→/g," matches ");
+  return d.textContent.replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}]/gu,"").replace(/\s+/g," ").trim();
+}
+function pickVoice(){
+  if (!synth) return null; const vs = synth.getVoices(); if (!vs.length) return null;
+  const en = vs.filter(v=>/^en[-_]US/i.test(v.lang));
+  for (const p of ["Samantha","Google US English","Ava","Allison","Nicky"]){ const f = en.find(v=>v.name.indexOf(p)>-1); if (f) return f; }
+  return en[0] || vs.find(v=>/^en/i.test(v.lang)) || null;
+}
+function stopSpeech(){ if (synth){ try { synth.cancel(); } catch(e){} } }
+function speak(text){
+  if (!synth || typeof SpeechSynthesisUtterance === "undefined"){ toast("🔇 Read-aloud is not available in this browser."); return; }
+  stopSpeech();
+  text = text.replace(/([.?!:”"])\s*\.(\s|$)/g, "$1$2");
+  const chunks = (text.match(/[^.!?]+[.!?]*["”’)]*/g) || [text]).map(s=>s.trim()).filter(Boolean);
+  const v = pickVoice();
+  chunks.forEach(c=>{ const u = new SpeechSynthesisUtterance(c); u.rate = settings.rate; u.lang = "en-US"; if (v) u.voice = v; synth.speak(u); });
+  if (!state.usedTTS){ state.usedTTS = true; afterProgress(); }
+}
+function passageSpeech(t){
+  if (t.kind === "writing") return t.sources.map(s=>s.title + ". " + s.paras.join(" ")).join(" ");
+  return t.title + ". " + t.paras.map((p,i)=>`Paragraph ${i+1}. ${p.join(" ")}`).join(" ");
+}
+function questionSpeech(t, i){
+  const it = t.items[i], opts = o => o.map((x,k)=>`${L[k]}. ${plain(x)}.`).join(" ");
+  const head = `Question ${i+1}. `;
+  switch (it.type){
+    case "mc": return head + plain(it.stem) + " " + opts(it.options);
+    case "ms": return head + plain(it.stem) + ` Select ${["","one","two","three"][it.n]} answers. ` + opts(it.options);
+    case "ebsr": return head + it.parts.map((p,pi)=>`Part ${"AB"[pi]}. ${plain(p.stem)} ${opts(p.options)}`).join(" ");
+    case "match": return head + plain(it.stem) + " The choices are: " + it.cols.join(", ") + ". " + it.rows.map((r,k)=>`Row ${k+1}. ${plain(r)}`).join(" ");
+    case "hot": return head + plain(it.stem) + ` Look at paragraph ${it.para}, and tap a sentence.`;
+  }
+  return head;
+}
+
+/* ===== Views ===== */
+function hudHTML(){
+  const v = state.view; let right = "";
+  if (v !== "welcome"){
+    const xp = totalXP(), i = rankIdx(xp), r = RANKS[i], nx = RANKS[i+1];
+    const pct = nx ? Math.round((xp - r.x) / (nx.x - r.x) * 100) : 100;
+    const rankBox = `<div class="rank"><b>${r.e} ${r.n}</b><div class="xpbar" aria-hidden="true"><i style="width:${pct}%"></i></div><span class="xpnote">${xp} XP${nx ? ` · ${nx.x - xp} to ${nx.n}` : " · top rank!"}</span></div>`;
+    if (v === "test" || v === "directions" || v === "review"){
+      right = `<button class="tool" data-act="fs-" aria-label="Smaller text">A−</button><button class="tool" data-act="fs+" aria-label="Larger text">A+</button>
+        <button class="tool" data-act="settings" aria-label="Settings" aria-expanded="${state.showSettings}">⚙️</button>
+        <button class="tool" data-act="exit">Save and exit</button>`;
+    } else {
+      right = `${rankBox}<span class="pill">⭐ ${totalStars()}</span>
+        <button class="tool" data-act="settings" aria-label="Settings" aria-expanded="${state.showSettings}">⚙️</button>`;
+    }
+  }
+  return `<div class="hud-in"><div class="brand"><b>🔎 Reading and Writing Practice</b><span>Grade 6 ELA · FAST-style · ${state.name ? esc(state.name) : "five missions"}</span></div>${right}</div>`;
+}
+
+function welcomeView(){
+  const last = lsGet(PREFIX+"last");
+  const hasLast = CAN_SAVE && last && lsGet(pkey(last));
+  return `<section class="card pop hero">
+      <div class="mascot" aria-hidden="true">🕵️</div>
+      <h1>Grade 6 Reading and Writing Practice</h1>
+      <p>Five missions: <span class="hl">author’s purpose</span>, <span class="hl">text structure</span>, <span class="hl">inferencing</span>, <span class="hl">rhetorical appeals</span>, and <span class="hl">expository writing</span>. Finish a mission to earn a sticker, stars, and XP!</p>
+      <p style="margin-top:1rem"><label class="nm" for="nm">✏️ Type your first and last name</label>
+      <input id="nm" type="text" autocomplete="off" autocapitalize="words" placeholder="First and last name" value="${esc(state.name)}"></p>
+      <div class="msg" id="wmsg">${esc(state.welcomeMsg)}</div>
+      <div class="row"><button class="btn go" data-act="start">🚀 Let’s go!</button>
+      ${hasLast ? `<button class="btn" data-act="continue">▶ Continue as ${esc(last)}</button>` : ""}</div>
+      <p class="small" style="margin-top:1rem">${CAN_SAVE ? "💾 Your work saves automatically on this iPad. Use the same name every time." : "⚠️ Saving is turned off in this browser (private mode?). Copy your results when you finish."}</p>
+    </section>
+    <section class="card">
+      <h3>What to expect</h3>
+      <p>☝️ <b>One try only.</b> Each mission can be submitted one time, so do your best work.</p>
+      <p>📖 Read the passage on the left and answer on the right.</p>
+      <p>🚩 Flag a question to come back to it. ✂️ Cross out answers you know are wrong.</p>
+      <p>🔊 Tap the speaker to hear the passage or question read out loud.</p>
+      <p>🏅 Each mission lists the Florida B.E.S.T. standard it practices.</p>
+      <p class="small">Practice written to match the kinds of items on the FAST reading and writing tests. These are not official FAST items.</p>
+    </section>`;
+}
+
+function shelfHTML(){
+  return `<div class="shelf">` + BADGES.map(b=>{
+    const got = state.badges.includes(b.id);
+    return `<div class="badge${got?"":" lock"}"><span class="be" aria-hidden="true">${got?b.e:"🔒"}</span><b>${b.n}</b><span class="d">${b.d}</span></div>`;
+  }).join("") + `</div>`;
+}
+function stickerBookHTML(){
+  return `<div class="sbook">` + TESTS.map(t=>{
+    const got = isDone(t.id), s = SK[t.skill];
+    return `<div class="sticker-s${got?"":" lock"}"><span class="se" aria-hidden="true">${got?s.sticker.e:"❓"}</span><b>${got?s.sticker.n:"Locked"}</b><div class="small">${esc(s.s)}</div></div>`;
+  }).join("") + `</div>`;
+}
+function stdListHTML(k){
+  return `<ul class="std">${SK[k].std.map(s=>`<li><b>${s.c}</b> ${esc(s.t)}</li>`).join("")}</ul>`;
+}
+
+function homeView(){
+  const cards = TESTS.map(t=>{
+    const r = rec(t.id), s = SK[t.skill], n = t.kind === "writing" ? null : t.items.length;
+    let status, btns;
+    if (isDone(t.id)){
+      const p = pctOfTest(t.id);
+      status = `✅ Complete · <b>${r.res.pts}/${r.res.max}</b> (${p}%) · <span class="star">${starIcons(starsOf(p))}</span> · ${s.sticker.e} ${s.sticker.n}`;
+      btns = `<button class="btn main" data-act="results" data-t="${t.id}">📊 See my results</button>`;
+    } else if (r.status === "progress"){
+      status = t.kind === "writing" ? `In progress · ${countWords(r.write.text)} words written` : `In progress · ${answeredCount(t,r)} of ${n} answered`;
+      btns = `<button class="btn main" data-act="open" data-t="${t.id}">▶ Continue${t.kind==="writing" ? "" : ` (question ${r.idx+1})`}</button>`;
+    } else {
+      status = "Not started";
+      btns = `<button class="btn main" data-act="open" data-t="${t.id}">▶ Start mission</button>`;
+    }
+    return `<section class="card tcard" style="--tacc:${t.color}">
+      <div class="th"><span class="em" aria-hidden="true">${s.e}</span><div><h3>${esc(s.n)}</h3><span>${esc(t.title)}</span></div></div>
+      <div class="tb">${stdListHTML(t.skill)}
+        <p class="small">${t.kind==="writing" ? "1 writing task · " : n + " questions · "}${t.max} points</p><p>${status}</p><div class="row">${btns}</div></div></section>`;
+  }).join("");
+  const any = doneCount() > 0, all = doneCount() >= TESTS.length;
+  return `<section class="card"><h2>👋 Hi, ${esc(state.name)}!</h2>
+      <p>Complete each mission to earn its sticker. Each mission is <b>one try only</b>.</p>
+      <p class="small">${state.savedAt ? "💾 Saved " + new Date(state.savedAt).toLocaleTimeString([], {hour:"numeric", minute:"2-digit"}) : "💾 Your work saves automatically."}</p></section>
+    <div class="tests">${cards}</div>
+    ${all ? `<p style="margin-top:1rem"><button class="btn go" data-act="cert">🎓 Get my certificate</button></p>` : ""}
+    <section class="card" style="margin-top:1rem"><h3>🎟️ My stickers</h3>${stickerBookHTML()}</section>
+    <section class="card"><h3>🏅 My badges</h3>${shelfHTML()}</section>
+    ${any ? turnInHTML() : ""}`;
+}
+
+function turnInHTML(){
+  return `<section class="card">
+    <h3>📨 Turn in my results</h3>
+    <p>Tap <b>Copy my results</b>, then ${FORM_URL ? "tap <b>Open the form</b> and paste." : "paste it where your teacher tells you."} It includes your essay if you finished the writing mission.</p>
+    <textarea id="rt" readonly aria-label="My results">${esc(overallText())}</textarea>
+    <div class="row" style="margin-top:.7rem">
+      <button class="btn go" data-act="copy">📋 Copy my results</button>
+      <button class="btn" data-act="download">💾 Download my work</button>
+      ${FORM_URL ? `<a class="btn" href="${esc(FORM_URL)}" target="_blank" rel="noopener">📝 Open the form</a>` : ""}
+    </div><p id="cp" style="min-height:1.5em"></p></section>`;
+}
+
+function directionsView(){
+  const t = curTest(), s = SK[t.skill], w = t.kind === "writing";
+  return `<div style="--tacc:${t.color}">
+    <section class="card pop">
+      <h2>${s.e} ${esc(s.n)}: Directions</h2>
+      <p><b>Standards practiced</b></p>${stdListHTML(t.skill)}
+      ${w ? `<p>Read the two sources, plan your ideas, and write an expository essay. Your essay saves as you type.</p>
+        <ul><li>Use details from <b>both sources</b>.</li><li>Write an introduction, body paragraphs, and a conclusion.</li><li>Use transitions and your own words.</li><li>Use 🔊 to hear the sources or your own draft read aloud.</li></ul>`
+      : `<p>Read the passage <b>“${esc(t.title)}”</b>. Then answer ${t.items.length} questions.</p>
+        <ul><li>Some questions have <b>one answer</b>. Some ask you to <b>select two</b>.</li><li>Some have <b>Part A and Part B</b>. Use your Part A answer to help with Part B.</li>
+        <li>Some ask you to <b>tap a sentence</b> in the passage. Some ask you to <b>match</b> items in a table.</li>
+        <li>Use <b>🚩 Flag</b> to mark a question. Use <b>✂</b> to cross out an answer. Use <b>🔊</b> to hear text read aloud.</li></ul>`}
+      <p><b>☝️ One try only.</b> After you submit, you cannot take this mission again.</p>
+      <div class="row"><button class="btn go" data-act="begin">▶ Begin</button><button class="btn" data-act="home">⬅ Back</button></div>
+    </section></div>`;
+}
+
+function passageHTML(t, it, r){
+  const i = r.idx, a = r.ans[i], hotPara = it && it.type === "hot" ? it.para : 0;
+  return t.paras.map((sents,pi)=>{
+    const n = pi + 1; let body;
+    if (n === hotPara){
+      const sel = Array.isArray(a) ? a : [];
+      body = sents.map((s,si)=>`<button class="sent${sel.includes(si)?" on":""}" data-act="hot" data-s="${si}" aria-pressed="${sel.includes(si)}">${esc(s)}</button>`).join(" ");
+    } else body = esc(sents.join(" "));
+    return `<p class="para" id="p${n}"><span class="pn" aria-label="Paragraph ${n}">${n}</span>${body}</p>`;
+  }).join("");
+}
+function optsHTML(opts, sel, multi, i, p, strike){
+  return `<div class="fopts" role="${multi?"group":"radiogroup"}">` + opts.map((o,k)=>{
+    const on = sel.includes(k), cr = strike.includes(k);
+    return `<div class="frow"><button class="fopt${on?" on":""}${cr?" cross":""}" data-act="pick" data-i="${i}" data-p="${p}" data-o="${k}" role="${multi?"checkbox":"radio"}" aria-checked="${on}">
+      <span class="ind ${multi?"sq":"ci"}">${on ? (multi?"✓":"●") : ""}</span><span class="lt">${L[k]}.</span><span class="ot">${esc(o)}</span></button>
+      <button class="xs" data-act="strike" data-i="${i}" data-p="${p}" data-o="${k}" aria-label="Cross out answer ${L[k]}" title="Cross out">✂</button></div>`;
+  }).join("") + `</div>`;
+}
+function controlsHTML(t, r, i){
+  const it = t.items[i], a = r.ans[i];
+  if (it.type === "mc") return `<div class="stem">${esc(it.stem)}</div>` + optsHTML(it.options, typeof a === "number" ? [a] : [], false, i, 0, r.strike[i+".0"]||[]);
+  if (it.type === "ms") return `<div class="stem">${esc(it.stem)}</div><p class="inst">Select ${["","ONE","TWO","THREE"][it.n]} answers.</p>` + optsHTML(it.options, Array.isArray(a)?a:[], true, i, 0, r.strike[i+".0"]||[]);
+  if (it.type === "ebsr") return it.parts.map((p,pi)=>`<div class="part"><h3>Part ${"AB"[pi]}</h3><div class="stem">${esc(p.stem)}</div>` +
+      optsHTML(p.options, a && typeof a[pi] === "number" ? [a[pi]] : [], false, i, pi, r.strike[i+"."+pi]||[]) + `</div>`).join("");
+  if (it.type === "match"){
+    const sel = Array.isArray(a) ? a : [];
+    return `<div class="stem">${esc(it.stem)}</div><div class="mtwrap"><table class="mt"><thead><tr><th scope="col"><span class="small">Sentence</span></th>${it.cols.map(c=>`<th scope="col">${esc(c)}</th>`).join("")}</tr></thead><tbody>` +
+      it.rows.map((row,ri)=>`<tr><th scope="row">${esc(row)}</th>${it.cols.map((c,ci)=>{
+        const on = sel[ri] === ci;
+        return `<td><button class="cell${on?" on":""}" data-act="cell" data-i="${i}" data-r="${ri}" data-c="${ci}" role="radio" aria-checked="${on}" aria-label="${esc(row)}: ${esc(c)}">✓</button></td>`;
+      }).join("")}</tr>`).join("") + `</tbody></table></div>`;
+  }
+  if (it.type === "hot"){
+    const sel = Array.isArray(a) ? a : [];
+    return `<div class="stem">${esc(it.stem)}</div><p class="inst">Tap a sentence in paragraph ${it.para} of the passage to select it.</p>
+      <div class="hotbox">${sel.length ? esc(sel.map(s=>t.paras[it.para-1][s]).join(" ")) : "<span class='small'>No sentence selected yet.</span>"}</div>`;
+  }
+  return "";
+}
+
+function testView(){
+  const t = curTest();
+  if (t.kind === "writing") return writingView(t);
+  const r = rec(t.id), i = r.idx, it = t.items[i], n = t.items.length;
+  const chips = t.items.map((x,k)=>`<button class="chip${k===i?" cur":""}${isAnswered(x,r.ans[k])?" ans":""}" data-act="goto" data-i="${k}" aria-label="Question ${k+1}${isAnswered(x,r.ans[k])?", answered":", not answered"}${r.flags[k]?", flagged":""}">${k+1}${r.flags[k]?`<span class="fl" aria-hidden="true">🚩</span>`:""}</button>`).join("");
+  const last = i === n - 1;
+  return `<div style="--tacc:${t.color}">
+    <div class="crumb"><span class="ttl">${SK[t.skill].e} ${esc(SK[t.skill].n)}</span><span class="small">· Question ${i+1} of ${n} · ${stdCodes(t.skill)}</span></div>
+    <div class="grid">
+      <section class="ppane" aria-label="Passage">
+        <h2>${esc(t.title)}</h2><div class="genre">${esc(t.genre)}</div>
+        <div class="listen"><button class="btn sm" data-act="say-passage">🔊 Read passage</button><button class="btn sm" data-act="stop">⏹ Stop</button></div>
+        ${passageHTML(t, it, r)}
+      </section>
+      <section class="qpane" aria-label="Question">
+        <div class="qhead"><h2 id="qh" tabindex="-1">Question ${i+1}</h2>
+          <button class="flagbtn${r.flags[i]?" on":""}" data-act="flag" aria-pressed="${!!r.flags[i]}">🚩 ${r.flags[i] ? "Flagged" : "Flag"}</button></div>
+        <div class="listen"><button class="btn sm" data-act="say-q">🔊 Read question</button><button class="btn sm" data-act="stop">⏹ Stop</button></div>
+        ${controlsHTML(t, r, i)}
+      </section>
+    </div></div>
+    <nav class="foot" aria-label="Question navigation"><div class="foot-in">
+      <button class="btn" data-act="prev" ${i===0?"disabled":""}>◀ Back</button>
+      <div class="chips">${chips}</div>
+      ${last ? `<button class="btn main" data-act="review">Review ☰</button>` : `<button class="btn main" data-act="next">Next ▶</button>`}
+    </div></nav>`;
+}
+
+function writingView(t){
+  const r = rec(t.id), w = r.write, wc = countWords(w.text);
+  const sources = t.sources.map(s=>`<h3>${esc(s.title)}</h3>` + s.paras.map(p=>`<p class="para" style="padding-left:0">${esc(p)}</p>`).join("")).join("");
+  const self = t.selfCheck.map((c,k)=>`<button class="selfchk${w.self[k]?" on":""}" data-act="w-self" data-k="${k}" role="checkbox" aria-checked="${!!w.self[k]}"><span class="ind">${w.self[k]?"✓":""}</span><span>${esc(c)}</span></button>`).join("");
+  const confirm = state.confirmSubmit ? `<div class="fbk part"><b>Are you ready to submit your essay?</b> ${wc < 60 ? `Your essay is short (${wc} words). ` : ""}You cannot change it after you submit, and you cannot take this mission again.
+      <div class="row" style="margin-top:.6rem"><button class="btn go" data-act="w-submit-yes">✅ Yes, submit my essay</button><button class="btn" data-act="w-submit-no">Keep writing</button></div></div>` : "";
+  return `<div style="--tacc:${t.color}">
+    <div class="crumb"><span class="ttl">${SK[t.skill].e} ${esc(SK[t.skill].n)}</span><span class="small">· ${stdCodes(t.skill)}</span></div>
+    <div class="grid">
+      <section class="ppane" aria-label="Sources">
+        <h2>${esc(t.title)}</h2><div class="genre">${esc(t.genre)}</div>
+        <div class="listen"><button class="btn sm" data-act="say-passage">🔊 Read sources</button><button class="btn sm" data-act="stop">⏹ Stop</button></div>
+        ${sources}
+      </section>
+      <section class="qpane" aria-label="Writing">
+        <h2 id="qh" tabindex="-1">Your writing task</h2>
+        <div class="wtask">${esc(t.prompt)}</div>
+        <div class="listen"><button class="btn sm" data-act="say-prompt">🔊 Read task</button><button class="btn sm" data-act="stop">⏹ Stop</button></div>
+        <h3>Step 1: Plan</h3>
+        ${t.plan.map((p,k)=>`<label class="wlabel" for="plan${k}">${esc(p)}</label><textarea class="plan" id="plan${k}">${esc(w.plan[k]||"")}</textarea>`).join("")}
+        <h3 style="margin-top:1rem">Step 2: Write your essay</h3>
+        <label class="wlabel" for="essay">Press Enter to start a new paragraph.</label>
+        <textarea class="essay" id="essay" spellcheck="true" autocapitalize="sentences">${esc(w.text)}</textarea>
+        <p><span class="wc" id="wc">${wc} words</span> <span class="small">· Your draft saves as you type.</span></p>
+        <div class="listen"><button class="btn sm" data-act="say-draft">🔊 Read my draft aloud</button><button class="btn sm" data-act="stop">⏹ Stop</button></div>
+        <h3 style="margin-top:1rem">Step 3: Check your work</h3>
+        ${self}
+        ${confirm}
+      </section>
+    </div></div>
+    <nav class="foot" aria-label="Submit"><div class="foot-in">
+      <span class="small" style="flex:1">${wc} words · tap Submit when you are done</span>
+      <button class="btn main" data-act="w-submit-ask">Submit essay</button>
+    </div></nav>`;
+}
+
+function reviewView(){
+  const t = curTest(), r = rec(t.id);
+  const unans = t.items.length - answeredCount(t, r), flagged = Object.keys(r.flags).filter(k=>r.flags[k]).length;
+  const rows = t.items.map((it,i)=>{
+    const ok = isAnswered(it, r.ans[i]);
+    return `<tr><td>Question ${i+1}</td><td class="${ok?"st-ok":"st-no"}">${ok?"Answered":"Not answered"}</td><td>${r.flags[i]?"🚩 Flagged":""}</td>
+      <td><button class="btn sm" data-act="goto" data-i="${i}">Go to question</button></td></tr>`;
+  }).join("");
+  return `<div style="--tacc:${t.color}">
+    <section class="card pop">
+      <h2>Review your answers</h2>
+      <p>${unans ? `<b class="st-no">${unans} question${unans>1?"s are":" is"} not answered.</b>` : "<b class='st-ok'>All questions are answered.</b>"} ${flagged ? `${flagged} flagged.` : ""}</p>
+      <table class="rv"><thead><tr><th>Question</th><th>Status</th><th>Flag</th><th></th></tr></thead><tbody>${rows}</tbody></table>
+      ${state.confirmSubmit ? `<div class="fbk part" style="margin-top:1rem"><b>Are you ready to submit?</b> ${unans ? `You still have ${unans} unanswered question${unans>1?"s":""}.` : ""} You cannot change answers after you submit, and you cannot take this mission again.
+        <div class="row" style="margin-top:.6rem"><button class="btn go" data-act="submit-yes">✅ Yes, submit</button><button class="btn" data-act="submit-no">Keep working</button></div></div>`
+      : `<div class="row" style="margin-top:1rem"><button class="btn" data-act="back-test">◀ Return to questions</button><button class="btn main" data-act="submit-ask">Submit mission</button></div>`}
+    </section></div>`;
+}
+
+function rewardView(){
+  const t = curTest(), s = SK[t.skill], r = rec(t.id), res = r.res, p = pctOfTest(t.id), stars = starsOf(p), rw = state.reward || { xp: xpOf(res), up: null };
+  const msg = p >= 95 ? "🏆 Outstanding work!" : p >= 80 ? "🔎 Strong work!" : p >= 60 ? "👏 Nice effort. Check your results to see what to review." : "📖 You finished! Check your results to see what to review.";
+  const all = doneCount() >= TESTS.length;
+  return `<div style="--tacc:${t.color}">
+    <section class="card reward">
+      <h1>🎉 Mission complete!</h1>
+      <h2>${s.e} ${esc(s.n)}</h2>
+      <div class="sticker" aria-hidden="true">${s.sticker.e}</div>
+      <h2>You earned the <span class="hl">${s.sticker.n}</span> sticker!</h2>
+      <p><span class="star">${starIcons(stars)}</span></p>
+      <p class="gain">+${rw.xp} XP</p>
+      ${rw.up !== null && rw.up !== undefined ? `<p><b>⬆️ Level up! You are now a ${RANKS[rw.up].e} ${RANKS[rw.up].n}.</b></p>` : ""}
+      <p>Score: <b>${res.pts}/${res.max}</b> (${p}%). ${msg}</p>
+      <p class="small">Standards practiced: ${esc(stdCodes(t.skill))}</p>
+      <div class="row" style="justify-content:center"><button class="btn main" data-act="results" data-t="${t.id}">📊 See my results</button><button class="btn go" data-act="home">🏠 Back to missions</button>${all ? `<button class="btn" data-act="cert">🎓 Get my certificate</button>` : ""}</div>
+    </section></div>`;
+}
+
+function resultsView(){
+  const t = curTest(), r = rec(t.id), g = r.res, s = SK[t.skill];
+  if (!g) return `<p>No results yet.</p>`;
+  const p = pctOfTest(t.id);
+  let body = "";
+  if (t.kind === "writing"){
+    body = `<section class="card"><h3>✍️ Writing checklist</h3>
+      <p class="small">This checklist counts what a computer can see. Your teacher will read your essay and score it with the writing rubric.</p>
+      ${g.checks.map(c=>`<div class="chk"><span class="ic">${c.ok?"✅":"❌"}</span><div><b>${esc(c.label)}</b><br><span class="small">${esc(c.note)}</span></div></div>`).join("")}</section>
+      <section class="card"><h3>📝 Your essay (${g.words} words)</h3><div class="essaybox">${esc(g.text || "(no essay)")}</div>
+        <div class="row" style="margin-top:.7rem"><button class="btn sm" data-act="say-essay">🔊 Read my essay aloud</button><button class="btn sm" data-act="stop">⏹ Stop</button></div></section>`;
+  } else {
+    const items = t.items.map((it,i)=>{
+      const pts = g.items[i], mx = it.type === "ebsr" ? 2 : 1, ok = pts === mx;
+      return `<details class="ritem"><summary>${ok?"✅":pts>0?"🟡":"❌"} Question ${i+1} · ${pts}/${mx}</summary>
+        <div class="rb"><p><b>Question:</b> ${esc(it.type==="ebsr" ? it.parts.map((x,k)=>`Part ${"AB"[k]}: ${x.stem}`).join(" ") : it.stem)}</p>
+        <p><b>Your answer:</b> ${esc(ansText(t, it, g.ans[i]))}</p>
+        ${ok ? "" : `<p><b>Correct answer:</b> ${esc(correctText(t, it))}</p>`}
+        <p><b>Why:</b> ${esc(it.explain)}</p></div></details>`;
+    }).join("");
+    body = `<section class="card"><h3>Review your answers</h3><p class="small">Tap a question to see the correct answer and why.</p>${items}</section>`;
+  }
+  return `<div style="--tacc:${t.color}">
+    <button class="btn sm" data-act="home" style="margin-bottom:.8rem">⬅ Back to missions</button>
+    <section class="card pop">
+      <h2>${s.e} Results: ${esc(s.n)}</h2>
+      <div class="big">${g.pts} / ${g.max} points</div>
+      <p>${p}% · <span class="star">${starIcons(starsOf(p))}</span> · ${s.sticker.e} ${s.sticker.n} sticker earned</p>
+      <p class="small">Standards: ${stdListHTMLInline(t.skill)}</p>
+      <p class="small">This mission is complete. Your score is saved.</p>
+    </section>${body}</div>`;
+}
+function stdListHTMLInline(k){ return SK[k].std.map(s=>`<b>${s.c}</b>`).join(", "); }
+
+function certView(){
+  const xp = totalXP(), i = rankIdx(xp);
+  const d = new Date().toLocaleDateString([], { year:"numeric", month:"long", day:"numeric" });
+  return `<section class="cert"><div style="font-size:3.5rem">🏅</div>
+      <h1>Certificate of Achievement</h1><p>This certifies that</p>
+      <div class="nm2">${esc(state.name)}</div>
+      <p>completed all five Grade 6 reading and writing missions:<br>author’s purpose, text structure, inferencing, rhetorical appeals, and expository writing.</p>
+      <p><b>${RANKS[i].e} ${RANKS[i].n}</b> · ${xp} XP · ⭐ ${totalStars()} stars</p>
+      <p class="small">${d}</p>
+      <div class="row noprint" style="justify-content:center;margin-top:1rem"><button class="btn go" data-act="print">🖨️ Print</button><button class="btn" data-act="home">⬅ Back to missions</button></div>
+    </section>`;
+}
+
+function overallText(){
+  const nm = state.name.trim() || "(no name)", xp = totalXP(), i = rankIdx(xp);
+  const lines = [`Name: ${nm}`, `Activity: Grade 6 Reading and Writing Practice (FAST-style)`, `Rank: ${RANKS[i].n} · ${xp} XP · ${totalStars()}/${TESTS.length*3} stars`];
+  let P = 0, M = 0; const missed = []; let essay = "";
+  TESTS.forEach(t=>{
+    const r = state.tests[t.id], s = SK[t.skill];
+    if (isDone(t.id)){
+      const g = r.res; lines.push(`${s.s} [${stdCodes(t.skill)}]: ${g.pts}/${g.max} (${Math.round(g.pts/g.max*100)}%)`);
+      if (t.kind === "writing"){ essay = g.text; lines.push(`   Writing checklist: ${g.words} words, ${g.paragraphs} paragraphs; missed: ${g.checks.filter(c=>!c.ok).map(c=>c.label.split(":")[0]).join(", ") || "none"}`); }
+      else { P += g.pts; M += g.max; t.items.forEach((it,k)=>{ const mx = it.type==="ebsr"?2:1; if (g.items[k] < mx) missed.push(`${s.s} Q${k+1}`); }); }
+    } else lines.push(`${s.s} [${stdCodes(t.skill)}]: not finished`);
+  });
+  if (M){ lines.push(`Reading total: ${P}/${M}`); lines.push(`Missed reading questions: ${missed.length ? missed.join("; ") : "none"}`); }
+  if (essay) lines.push("", "Expository essay:", essay);
+  return lines.join("\n");
+}
+
+function settingsHTML(){
+  const rates = [{v:0.8,l:"🐢 Slow"},{v:1,l:"🚶 Normal"},{v:1.2,l:"🐇 Fast"}];
+  return `<section class="card settings">
+    <h3>⚙️ Settings</h3>
+    <p><b>Read-aloud speed</b></p>
+    <div class="tabs">${rates.map(r=>`<button class="tab${settings.rate===r.v?" on":""}" data-act="rate" data-v="${r.v}">${r.l}</button>`).join("")}<button class="tab" data-act="say-test">🔊 Test voice</button></div>
+    <div class="tabs">
+      <button class="tab${settings.auto?" on":""}" data-act="toggle-auto" aria-pressed="${settings.auto}">🎧 Auto-read each question: ${settings.auto?"On":"Off"}</button>
+      <button class="tab" data-act="fs-">A− Smaller text</button><button class="tab" data-act="fs+">A+ Larger text</button>
+    </div>
+    <p class="small">Playing as <b>${esc(state.name)}</b>. ${CAN_SAVE ? "Your work saves automatically on this iPad." : "Saving is not available in this browser."}</p>
+    <div class="row"><button class="btn sm" data-act="download">💾 Download my work</button><button class="btn sm" data-act="switch">👥 Switch player</button></div>
+  </section>`;
+}
+
+/* ===== Render ===== */
+function render(opts){
+  opts = opts || {};
+  stopSpeech();
+  const pp = document.querySelector(".ppane"), qp = document.querySelector(".qpane");
+  const ps = pp ? pp.scrollTop : 0, qs = qp ? qp.scrollTop : 0;
+  hud.innerHTML = hudHTML();
+  const v = state.view;
+  let html = v==="welcome" ? welcomeView() : v==="home" ? homeView() : v==="directions" ? directionsView() : v==="test" ? testView() : v==="review" ? reviewView() : v==="reward" ? rewardView() : v==="cert" ? certView() : resultsView();
+  if (state.showSettings && v !== "welcome" && v !== "cert") html = settingsHTML() + html;
+  app.innerHTML = html;
+  if (v === "test"){
+    const np = document.querySelector(".ppane"), nq = document.querySelector(".qpane");
+    if (np && opts.keepPane) np.scrollTop = ps;
+    if (nq && opts.keepQ) nq.scrollTop = qs;
+  }
+  if (!opts.keepScroll) window.scrollTo(0, 0);
+  if (v === "test" && opts.nav){
+    const t = curTest(), r = rec(t.id);
+    const h = document.getElementById("qh"); if (h) h.focus({preventScroll:true});
+    if (t.kind !== "writing"){
+      const it = t.items[r.idx];
+      if (it.type === "hot"){ const el = document.getElementById("p"+it.para); if (el && el.scrollIntoView) el.scrollIntoView({block:"nearest"}); }
+      if (settings.auto) speak(questionSpeech(t, r.idx));
+    }
+  }
+}
+function pickRender(){ save(); render({ keepScroll:true, keepPane:true, keepQ:true }); }
+function nav(i){ const t = curTest(), r = rec(t.id); r.idx = i; state.view = "test"; save(); render({ nav:true, keepPane:true }); }
+
+function beginPlayer(name){
+  state.name = name.trim().replace(/\s+/g," ");
+  Object.assign(state, freshProgress());
+  const loaded = loadPlayer(state.name);
+  state.view = "home"; state.showSettings = false; state.welcomeMsg = ""; state.reward = null;
+  save(); render();
+  toast(loaded ? `👋 Welcome back, ${state.name}! Your progress is loaded.` : `🎉 Welcome, ${state.name}!`);
+}
+function submitTest(){
+  const t = curTest(), r = rec(t.id);
+  if (r.status === "done") return;                          // one try only
+  const before = rankIdx(totalXP());
+  r.res = t.kind === "writing" ? gradeWriting(t, r) : gradeReading(t, r);
+  r.status = "done";
+  const after = rankIdx(totalXP());
+  state.reward = { tid: t.id, xp: xpOf(r.res), up: after > before ? after : null };
+  state.confirmSubmit = false; state.view = "reward";
+  afterProgress(); render(); confetti(34);
+}
+function copyResults(){
+  const txt = overallText(), msg = document.getElementById("cp"), ta = document.getElementById("rt");
+  const ok = ()=>{ if (msg) msg.textContent = "✅ Copied!"; };
+  const fallback = ()=>{ ta.removeAttribute("readonly"); ta.focus(); ta.select(); ta.setSelectionRange(0, txt.length);
+    let done = false; try { done = document.execCommand("copy"); } catch(e){}
+    done ? ok() : (msg.textContent = "👆 Press and hold the text, then tap Copy."); ta.setAttribute("readonly",""); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(ok, fallback); else fallback();
+}
+function downloadWork(){
+  const blob = new Blob([overallText() + "\n"], { type: "text/plain" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+  a.download = "Reading-Writing-Practice-" + (state.name.replace(/[^\w]+/g,"-") || "student") + ".txt";
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href), 3000);
+  toast("💾 Your work was downloaded.");
+}
+
+/* ===== Events ===== */
+document.addEventListener("click", e=>{
+  const el = e.target.closest("[data-act]"); if (!el) return;
+  const d = el.dataset, act = d.act;
+  const t = state.tid ? curTest() : null, r = t ? rec(t.id) : null;
+  const locked = r && r.status === "done";                  // one try: no edits after submitting
+  switch (act){
+    case "start": {
+      const v = (document.getElementById("nm")||{}).value || "";
+      if (!v.trim()){ document.getElementById("wmsg").textContent = "👆 Type your name first."; return; }
+      beginPlayer(v); break; }
+    case "continue": beginPlayer(lsGet(PREFIX+"last")||""); break;
+    case "home": state.view = "home"; state.confirmSubmit = false; render(); break;
+    case "exit": save(); state.view = "home"; state.confirmSubmit = false; render(); toast("💾 Saved. You can continue later."); break;
+    case "open": {
+      state.tid = d.t; const rr = rec(d.t);
+      if (rr.status === "done"){ state.view = "results"; render(); }
+      else if (rr.status === "new"){ state.view = "directions"; render(); }
+      else { state.view = "test"; render({ nav:true }); }
+      break; }
+    case "begin": if (locked) return; r.status = "progress"; r.idx = 0; save(); state.view = "test"; render({ nav:true }); break;
+    case "results": state.tid = d.t; state.view = "results"; render(); break;
+    case "cert": state.view = "cert"; render(); confetti(30); break;
+    case "print": window.print(); break;
+    case "goto": if (locked) return; nav(+d.i); break;
+    case "prev": if (locked) return; if (r.idx > 0) nav(r.idx - 1); break;
+    case "next": if (locked) return; if (r.idx < t.items.length - 1) nav(r.idx + 1); break;
+    case "review": if (locked) return; state.view = "review"; state.confirmSubmit = false; save(); render(); break;
+    case "back-test": if (locked) return; nav(r.idx); break;
+    case "submit-ask": case "w-submit-ask": if (locked) return; state.confirmSubmit = true; render({keepScroll:true, keepPane:true, keepQ:true}); break;
+    case "submit-no": case "w-submit-no": state.confirmSubmit = false; render({keepScroll:true, keepPane:true, keepQ:true}); break;
+    case "submit-yes": case "w-submit-yes": submitTest(); break;
+    case "flag": if (locked) return; r.flags[r.idx] = !r.flags[r.idx]; pickRender(); break;
+    case "strike": {
+      if (locked) return; const k = d.i + "." + d.p, o = +d.o, a = r.strike[k] || [];
+      r.strike[k] = a.includes(o) ? a.filter(x=>x!==o) : a.concat(o); pickRender(); break; }
+    case "pick": {
+      if (locked) return; const i = +d.i, p = +d.p, o = +d.o, it = t.items[i];
+      if (it.type === "mc") r.ans[i] = o;
+      else if (it.type === "ebsr"){ const a = Array.isArray(r.ans[i]) ? r.ans[i] : [null,null]; a[p] = o; r.ans[i] = a; }
+      else if (it.type === "ms"){
+        let a = Array.isArray(r.ans[i]) ? r.ans[i] : [];
+        if (a.includes(o)) a = a.filter(x=>x!==o); else { a = a.concat(o); if (a.length > it.n) a = a.slice(a.length - it.n); }
+        r.ans[i] = a;
+      }
+      pickRender(); break; }
+    case "cell": {
+      if (locked) return; const i = +d.i, it = t.items[i];
+      const a = Array.isArray(r.ans[i]) ? r.ans[i] : it.rows.map(()=>null); a[+d.r] = +d.c; r.ans[i] = a; pickRender(); break; }
+    case "hot": {
+      if (locked) return; const i = r.idx, it = t.items[i];
+      const s = +d.s, n = it.n || 1; let a = Array.isArray(r.ans[i]) ? r.ans[i] : [];
+      if (a.includes(s)) a = a.filter(x=>x!==s); else { a = a.concat(s); if (a.length > n) a = a.slice(a.length - n); }
+      r.ans[i] = a; pickRender(); break; }
+    case "w-self": if (locked) return; r.write.self[+d.k] = !r.write.self[+d.k]; pickRender(); break;
+    case "settings": state.showSettings = !state.showSettings; render({keepScroll:true, keepPane:true, keepQ:true}); break;
+    case "rate": settings.rate = +d.v; saveSettings(); render({keepScroll:true, keepPane:true, keepQ:true}); speak("This is how fast I will read to you."); break;
+    case "toggle-auto": settings.auto = !settings.auto; saveSettings(); render({keepScroll:true, keepPane:true, keepQ:true}); break;
+    case "fs+": settings.fs = Math.min(1.5, Math.round((settings.fs + 0.1)*10)/10); saveSettings(); render({keepScroll:true, keepPane:true, keepQ:true}); break;
+    case "fs-": settings.fs = Math.max(0.9, Math.round((settings.fs - 0.1)*10)/10); saveSettings(); render({keepScroll:true, keepPane:true, keepQ:true}); break;
+    case "say-test": speak("Hi! This is how I sound when I read to you."); break;
+    case "say-passage": speak(passageSpeech(t)); break;
+    case "say-q": speak(questionSpeech(t, r.idx)); break;
+    case "say-prompt": speak("Your writing task. " + t.prompt); break;
+    case "say-draft": speak(r.write.text ? r.write.text : "You have not written anything yet."); break;
+    case "say-essay": speak(r.res && r.res.text ? r.res.text : "No essay."); break;
+    case "stop": stopSpeech(); break;
+    case "copy": copyResults(); break;
+    case "download": downloadWork(); break;
+    case "switch": save(); state.name = ""; Object.assign(state, freshProgress()); state.showSettings = false; state.view = "welcome"; state.tid = null; state.reward = null; render(); break;
+  }
+});
+document.addEventListener("input", e=>{
+  const id = e.target.id; if (!state.tid) return;
+  const t = curTest(); if (!t || t.kind !== "writing") return;
+  const r = rec(t.id); if (r.status === "done") return;     // one try: locked after submit
+  if (id === "essay"){
+    r.write.text = e.target.value;
+    const el = document.getElementById("wc"); if (el) el.textContent = countWords(e.target.value) + " words";
+    schedSave();
+  } else if (/^plan\d$/.test(id)){ r.write.plan[+id.slice(4)] = e.target.value; schedSave(); }
+});
+document.addEventListener("keydown", e=>{ if (e.key === "Enter" && e.target.id === "nm"){ e.preventDefault(); const b = document.querySelector('[data-act="start"]'); if (b) b.click(); } });
+
+render();
+</script>
+</body>
+</html>
